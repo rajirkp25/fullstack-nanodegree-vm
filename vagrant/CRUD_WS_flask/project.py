@@ -19,7 +19,7 @@ def restMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(
         restaurant_id=restaurant_id).all()
-    return jsonify(MenuItem=[i.serialize for i in items])
+    return jsonify(MenuItems=[i.serialize for i in items])
 
 
 @app.route('/')
