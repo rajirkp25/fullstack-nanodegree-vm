@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="google-signin-client_id" content="1049350777384-6mkvjsngh7vf0gjm0humpgt2gdllgph3.apps.googleusercontent.com">
+</head>
+<body>
+
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#about">About</a>
+  <!--
+  <div class="login-container">
+   <a id="google-button" class="btn btn-block btn-google">
+  <i class="fa fa-google"></i> Sign in with Google
+</a>    
+   
+  </div>
+-->
+<div class="text-center1 fa-stack-2x"> Udacity Books Catalog It is! </div>
+  <div id="signinButton" class="topright">
+  
+  </div>
+</div>
+
+
+  <script>
+    function onFailure(error) {
+      console.log(error);
+      document.write("<h1>Failure to login <h1>")
+    }
+    function renderButton() {
+      gapi.signin2.render('signinButton', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSignIn,
+        'onfailure': onFailure
+      });
+    }
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+   
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      setTimeout(function() {
+          window.location.href = "/catalog";
+         }, 4000);
+}
+
+    
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" ></script>
+
+</body>
+</html>
