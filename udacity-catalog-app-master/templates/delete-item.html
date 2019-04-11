@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class="content">
+  <div class="row">
+    <form method="POST">
+      <div class="row">
+        <div class="input-field col s6">
+          <label>Are you sure you want to delete {{item.name}}?</label>
+      	</div>
+        <div class="input-field col s6">
+          <input type="submit" name="delete" class="waves-effect waves-light btn red" value="delete" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
