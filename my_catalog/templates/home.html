@@ -1,0 +1,87 @@
+{% extends "main.html" %}
+{% include "topnav.html" %}
+{% block content %}
+
+
+ <!--<div id="signinButton" class="topright">
+	</div>
+
+  <div class ="topright">
+{% if 'username' not in session %}
+
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  {% else %}
+		<li><a href="/gdisconnect">Logout</a></li>
+	{% endif %}
+</div>
+
+<nav>
+
+  <div class="nav-wrapper">
+    <a class="brand-logo">Udacity Category App</a>
+ 
+  <div class="navbar  fixed-top navbar-dark bg-dark">
+    <h2 > Udacity Category App {{session['username']}} </h2>
+      <ul  class="text-right ">
+    	{%if 'username' not in session %}
+	<div class="g-signin2" data-onsuccess="onSignIn"></div> 
+	<li><a class="text-primary" href="/gconnect?state={{STATE}}">Login</a></li>
+		{% else %}
+		<li><a class="text-primary"  href="/gdisconnect">Logout</a></li>
+    	{% endif %}
+    </ul>
+  </div>
+
+</nav> -->
+
+<h1>{{STATE}} </h1>
+<h1> user email {{email}} </h1>
+<div class="jumbotron text-center">
+  <h1>Books Catalog</h1>
+  <p>The word book comes from Old English "bōc", which in turn comes from the Germanic root "*bōk-", cognate to "beech".[5] Similarly, in Slavic languages (for example, Russian, Bulgarian, Macedonian) "буква" (bukva—"letter") is cognate with "beech". In Russian and in Serbian and Macedonian, the word "букварь" (bukvar') or "буквар" (bukvar) refers specifically to a primary school textbook that helps young children master the techniques of reading and writing. It is thus conjectured that the earliest Indo-European writings may have been carved on beech wood.[6] Similarly, the Latin word codex, meaning a book in the modern sense (bound and with separate leaves), originally meant "block of wood".</p> 
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Book as a Physical Object</h3>
+           <p>As a physical object, a book is a stack of usually rectangular pages (made of papyrus, parchment, vellum, or paper) oriented with one edge tied, sewn, or otherwise fixed together and then bound to the flexible spine of a protective cover of heavier, relatively inflexible material.[1] </p>
+</p>
+      <p>The technical term for this physical arrangement is codex (in the plural, codices). In the history of hand-held physical supports for extended written compositions or records, the codex replaces its immediate predecessor, the scroll. A single sheet in a codex is a leaf, and each side of a leaf is a page.</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Book as an intellectual object</h3>
+      <p>As an intellectual object, a book is prototypically a composition of such great length that it takes a considerable investment of time to compose and a still considerable, though not so extensive, investment of time to read. This sense of book has a restricted and an unrestricted sense.</p>
+</p>
+      <p>In the restricted sense, a book is a self-sufficient section or part of a longer composition, a usage that reflects the fact that, in antiquity, long works had to be written on several scrolls, and each scroll had to be identified by the book it contained..</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Monograph</h3>        
+      <p>A monograph is a specialist work of writing (in contrast to reference works)[1] on a single subject or an aspect of a subject, often by a single author, and usually on a scholarly subject.
+In library cataloging, monograph has a broader meaning, that of a nonserial publication complete in one volume (book) or a definite number of volumes. Thus it differs from a serial publication such as a magazine, journal, or newspaper.[2] In this context only, books such as novels are monographs.</p>
+     
+    </div>
+  </div>
+</div>
+  <script type="text/javascript">
+     function onSignIn(googleUser) {
+      
+        setTimeout(function() {
+          window.location.href = "/home?state={{STATE}}";
+         }, 500000);
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  setTimeout(function() {
+          window.location.href = "/gconnect?state={{STATE}}";
+         }, 4000);
+
+}
+      </script>
+
+   <script src="https://apis.google.com/js/platform.js"></script>
+
+   {% endblock %}         
+      

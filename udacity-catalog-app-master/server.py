@@ -1,4 +1,4 @@
-from flask import Flask, Session, render_template, request, redirect, jsonify, url_for, flash, send_from_directory
+from flask import session, Flask, Session, render_template, request, redirect, jsonify, url_for, flash, send_from_directory
 # from flask.ext.session import Session
 # from sqlalchemy import create_engine, asc
 # from sqlalchemy.orm import sessionmaker
@@ -14,6 +14,7 @@ import json
 from flask import make_response
 import requests
 import urllib3
+from oauth2client.contrib.flask_util import UserOAuth2
 from functools import wraps
 from requests.compat import unquote
 
@@ -36,6 +37,38 @@ app.secret_key = 'super_secret_key'
 
 # DBSession = sessionmaker(bind=engine)
 # session = DBSession()
+oauth2 = UserOAuth2()
+
+
+@app.route('/test')
+def test():
+    print("state in test ", login_session['state'])
+    categories = db.session.query(Category).order_by(db.asc(Category.id))
+    latest_items = db.session.query(CategoryItem)
+    oauth2.init_app(
+                        app,
+                        scopes=['email', 'profile'],
+                        authorize_callback=_request_user_info)
+    return render_template('categories.html', categories=categories, latest_items=latest_items)
+
+
+def _request_user_info(credentials):
+    """
+    Makes an HTTP request to the Google OAuth2 API to retrieve the user's basic
+    profile information, including full name and photo, and stores it in the
+    Flask session.
+    """
+    http = httplib2.Http()
+    credentials.authorize(http)
+    resp, content = http.request(
+        'https://www.googleapis.com/oauth2/v3/userinfo')
+
+    if resp.status != 200:
+        response = make_response(
+        json.dumps('Failed to upgrade the authorization code.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        session['profile'] = json.loads(content.decode('utf-8'))
+        return response
 
 
 @app.route('/login')
@@ -43,6 +76,7 @@ def showLogin():
     '''Create anti-forgery state token'''
     state = ''.join(
         random.choice(string.ascii_uppercase + string.digits) for x in range(32))
+    print ("state ", state)
     login_session['state'] = state
     # return "The current session state is %s" % login_session['state']
     return render_template('login.html', STATE=state)
@@ -130,6 +164,7 @@ def fbdisconnect():
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Validate state token
+    print("in gconnect ", login_session['state'])
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'

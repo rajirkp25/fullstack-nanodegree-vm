@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class="content">
+	<div class="row">
+	    <form class="col s12" method="POST">
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input value="{{item.name}}" id="name" name="name" type="text" class="validate">
+	          <label for="name">Name</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <textarea name="description" id="description" class="materialize-textarea">{{item.description}}</textarea>
+	          <label for="description">Description</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<input type="text" id="category_id_helper" class="hide" value="{{item.category_id}}">
+	          	<select id="categories" name="category_id">
+	          		<option value="" disabled selected>Choose your option</option>
+	          		{% for category in categories %}
+	          		<option value="{{category.id}}">{{category.name}}</option>
+	          		{% endfor %}
+				</select>
+				<label>Parent Category</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	      		<input type="submit" class="waves-effect waves-light btn" value="submit" />
+	      	</div>
+	      </div>
+	    </form>
+	</div>
+</div>
+
+{% endblock %}

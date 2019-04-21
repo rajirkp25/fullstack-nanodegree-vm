@@ -1,46 +1,12 @@
-.row-header {
-  margin: 0px auto;
-  padding: 0px auto;
-}
-
-.row-content {
-  margin: 0px auto;
-  padding: 50 px 0 px 50 px 0 px;
-  border-bottom: 1px ridge;
-  min-height: 400px;
-}
-
-.footer {
-  background-color: #d1c4e9;
-  margin: 0px auto;
-  padding: 20px 0px 20p 0px;
-}
-
-.jumbotron {
-  padding: 70px 30px 70px 30px;
-  margin: 0px auto;
-  background: #9575cd;
-  color: floralwhite;
-}
-
-.address {
-  font-size: 80%;
-  margin: 0px;
-  color: #0f0f0f;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 .text-center1 {
   text-align: center;
-  padding: 10px 20px 30px;
+  padding: 50px 50px 50px;
+  font-weight: bold;
+}
+
+.text-left1 {
+  text-align: left;
+  padding: 50px 50px 50px;
   font-weight: bold;
 }
 .topright {
@@ -51,7 +17,7 @@ body {
 
 .topnav {
   overflow: hidden;
-  background-color: #f4b400;
+  background-color: #f7b733;
   color: #fff;
 }
 
@@ -119,5 +85,48 @@ body {
   }
   .topnav input[type="text"] {
     border: 1px solid #ccc;
+  }
+}
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+body {
+  padding-top: 70px;
+}
+footer {
+  padding: 30px 0;
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 780px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    width: 60%; /* 6 columns */
+    display: none;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-right.active .sidebar-offcanvas {
+    display: block;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  .row-offcanvas-right.active {
   }
 }
