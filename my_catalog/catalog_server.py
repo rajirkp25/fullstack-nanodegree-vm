@@ -191,16 +191,22 @@ def getUserID(email):
 @app.route('/catalog/')
 def showCatalogs():
 
+        print("res ", request.values.get('res'))
+        print("cat_id ", request.values.get('cat_id'))
        # print("user email in sowCatalogs ", login_session['email'])
-        
+        # if request.args.get('res') == True:
+         #       print("Confirm delete, delete the catalog", request.args.get('cat_id'))
         cats = db_session.query(Category).order_by(asc(Category.name))
         return render_template('catalogs.html', categories=cats)
 
 
 @app.route('/catalog/new/', methods=['GET', 'POST'])
 def newCatalog():
+    tile_color_list = ['bg-secondary', 'bg-primary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-dark']
     if request.method == 'POST':
-        newCat = Category(name=request.form['catName'], description=request.form['catDescr'])
+            # add user info with catalog
+        newCat = Category(name=request.form['catName'], description=request.form['catDescr'],
+        tile=random.choice(tile_color_list))
         db_session.add(newCat)
         flash('New Book Category %s Successfully Created' % newCat.name)
        
@@ -215,26 +221,127 @@ def newCatalog():
 def editCatalog(cat_id):
     print("editing catalog id %s", cat_id)
     editedCatalog = db_session.query(
-        Category).filter_by(id=cat_id).one()
+        Category).filter_by(cat_id=cat_id).one()
     if request.method == 'POST':
-        if request.form['catName']:
-            editedCatalog.name = request.form['catName']
-            flash('Catalog Successfully Edited %s' % editedCatalog.name)
-            return redirect(url_for('showCatalogs'))
+        if request.form['catDescr']:
+            editedCatalog.description = request.form['catDescr']
+        
+        db_session.add(editedCatalog)
+        db_session.commit()  
+      
+        flash('Catalog Successfully Edited %s' % editedCatalog.name)
+        return redirect(url_for('showCatalogs'))
     else:
+        print("editing catalog name = ", editedCatalog.name)
         return render_template('editCatalog.html', category=editedCatalog)
+
+
+# delete a catalog
+@app.route('/catalog/<int:cat_id>/delete/', methods=['GET', 'POST'])
+def deleteCatalog(cat_id):
+    
+    delCatalog = db_session.query(
+        Category).filter_by(cat_id=cat_id).one()
+    if request.method == 'POST':
+        print("deleting catalog id %s", cat_id)    
+        db_session.delete(delCatalog)
+        db_session.commit()  
+      
+        flash('Catalog Successfully deleted %s' % delCatalog.name)
+        return redirect(url_for('showCatalogs'))
+    else:
+        print("deleting catalog name = ", delCatalog.name)
+        return render_template('deleteCatalog.html', cat=delCatalog)
 
  
 # Json APIs to view catalogs
 @app.route('/catalog/JSON')
-def restaurantsJSON():
+def catalogsJSON():
     categories = db_session.query(Category).all()
     return jsonify(categories=[c.serialize for c in categories])
 
 
+# show all catalog items
+@app.route('/catalog/<int:cat_id>/')
+def showCatalogItems(cat_id):
+
+        print("cat id in showCatalogItems ", cat_id)
+        cats = db_session.query(Category).filter_by(cat_id=cat_id).one()
+        items = db_session.query(CategoryItem).filter_by(
+        cat_id=cat_id).order_by(asc(CategoryItem.name))
+        for i in items:
+                print("book--> " , i , " " , i.name)
+        return render_template('catalogItems.html', items=items, cats=cats)
+
+
+# Add new Book
+@app.route('/book/new/<int:cat_id>/', methods=['GET', 'POST'])
+def newBook(cat_id):
+    print('Adding new book in cat id %s' % cat_id)
+    cats = db_session.query(Category).filter_by(cat_id=cat_id).one()
+    if request.method == 'POST':
+        print(request.form['name'])
+        print(request.form['descr'])
+        print(request.form['price'])
+        print(request.form['author'])
+        newBook = CategoryItem(cat_id=cat_id, name=request.form['name'], description=request.form['descr'], price=request.form['price'], author=request.form['author'])
+        db_session.add(newBook)
+        flash('New Book Category %s Successfully Created' % newBook.name)
+       
+        db_session.commit()
+        return redirect(url_for('showCatalogItems', cat_id=cat_id))
+    else:
+        return render_template('newBook.html', cat_id=cat_id)
+
+
+# edit a catalog item
+@app.route('/catalog/<int:cat_id>/<int:item_id>/edit/', methods=['GET', 'POST'])
+def editCatalogItem(cat_id, item_id):
+    print("editing item id -->", item_id)
+    # cats = db_session.query(Category).filter_by(cat_id=cat_id).one()
+   
+    editedCatalogItem = db_session.query(
+        CategoryItem).filter_by(item_id=item_id).one()
+    
+    if request.method == 'POST':
+        if request.form['ItemDescr']:
+            editedCatalogItem.description = request.form['ItemDescr']
+        if request.form['itemPrice']:
+            editedCatalogItem.price = request.form['itemPrice']
+        if request.form['itemRank']:
+            editedCatalogItem.best_seller_rank = request.form['itemRank'] 
+        
+        db_session.add(editedCatalogItem)
+        db_session.commit()  
+        name = editedCatalogItem.name
+        flash('Item Successfully Edited %s' % name)
+        return redirect(url_for('showCatalogItems', cat_id=cat_id))
+    else:
+        print("editing item name = ", editedCatalogItem.name)
+        return render_template('editItem.html', item=editedCatalogItem)
+
+
+# delete a catalog item
+@app.route('/catalog/<int:cat_id>/<int:item_id>/delete/', methods=['GET', 'POST'])
+def deleteCatalogItem(cat_id, item_id):
+    
+    delCatalogItem = db_session.query(
+        CategoryItem).filter_by(item_id=item_id).one()
+    if request.method == 'POST':
+        print("deleting item id %s", item_id)    
+        db_session.delete(delCatalogItem)
+        db_session.commit()  
+      
+        flash('Catalog Successfully deleted %s' % delCatalogItem.name)
+        return redirect(url_for('showCatalogItems', cat_id=cat_id))
+    else:
+        print("deleting catalog name = ", delCatalogItem.name)
+        return render_template('deleteCatalogItem.html',  item=delCatalogItem)
+
+
 @app.route('/catalog/<int:cat_id>/books/JSON')
-def restaurantMenuJSON(cat_id):
-    cats = db_session.query(Category).filter_by(id=cat_id).one()
+def catlogItemsJSON(cat_id):
+    cats = db_session.query(Category).filter_by(cat_id=cat_id).one()
     items = db_session.query(CategoryItem).filter_by(
         cat_id=cat_id).all()
     return jsonify(CategoryItem=[i.serialize for i in items])

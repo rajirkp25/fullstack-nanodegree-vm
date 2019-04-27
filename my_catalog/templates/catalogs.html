@@ -5,21 +5,42 @@
 	<div class="row banner menu">
 <h1 class="display-3">Book Categories</h1>
 
+
+<!--
+<a  href='{{url_for('editCatalog', cat_id = 1) }}'>
+<button type="button" class="btn btn-info btn-lg">Edit Category</button>
+</a> -->
+</div>
+<div class = 'flash'>
+		      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
 <a  href='{{url_for('newCatalog') }}'>
 <button type="button" class="btn btn-success btn-lg">Create New Category</button>
 </a>
-</div>
-
-
+<div class="col-xs-12" style="height:40px;"></div>
 <div class="container">
   <div class="row">
  
  {% for cat in categories %} 
   <div class="col-sm-4">
-  <div class="card text-white {{cat.tile}} mb-3" style="max-width: 18rem;">
-    <div class="card-header">{{cat.name}}</div>
+  <div class="card border-dark text-white {{cat.tile}} mb-3" style="max-width: 18rem;">
+    <div class="card-header">
+    <h5>{{cat.name}}</h5>
+   
+    </div>
     <div class="card-body">
-    <a href=""{{url_for('editCatalog', cat_id = cat.cat_id )}}" class="card-link"><mark>Edit {{cat.name}}</mark></a>
+    <a href='{{url_for('editCatalog', cat_id = cat.cat_id )}}'class="card-link"><mark>Edit {{cat.name  , cat.cat_id}}</mark>
+    </a>
      <!-- <h5 class="card-title">Primary card title</h5> -->
       <p class="card-text">
       {{cat.description}}

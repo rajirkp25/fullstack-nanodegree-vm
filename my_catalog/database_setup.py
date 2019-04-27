@@ -36,7 +36,10 @@ class Category(Base):
     cat_id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     description = Column(UnicodeText(10000))
-    tile = Column(String(250), default="bg-dark")
+    tile = Column(String(250))
+        # added by user
+    user_id = Column(Integer, ForeignKey('user.user_id'))  
+    user = relationship(User)
 
     @property
     def serialize(self):
@@ -60,9 +63,6 @@ class CategoryItem(Base):
     best_seller_rank = Column(Integer, default=i)
     cat_id = Column(Integer, ForeignKey('category.cat_id'))
     category = relationship(Category)
-    # added by user
-    user_id = Column(Integer, ForeignKey('user.user_id'))  
-    user = relationship(User)
 
     @property
     def serialize(self):
@@ -72,7 +72,7 @@ class CategoryItem(Base):
             'description': self.description,
             'id': self.item_id,
             'price': self.price,
-            'course': self.cat_id,
+            'cat_id': self.cat_id,
         }
 
 
