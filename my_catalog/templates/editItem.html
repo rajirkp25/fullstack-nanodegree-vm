@@ -12,14 +12,15 @@
       <button class="btn btn-warning">Cancel</button>
       </a>
       <div class="col-xs-12" style="width:40px;"></div>
-       
+       {% if 'username'  in session %}  
        <a href = '{{url_for('deleteCatalogItem', cat_id = item.cat_id, item_id=item.item_id )}}'>
       <button class="btn btn-danger">Delete</button>
       </a>
+      {% endif %}
   </div>
 
   <div class="col-xs-12" style="height:20px;"></div>
-
+   {% if 'username'  in session %}
 <form action="#" method = "post">
 
    <div class="form-group">
@@ -58,7 +59,7 @@
     </div>
   </div>
 </form>
-
+{% endif %}
 
 
 {% endblock %}  

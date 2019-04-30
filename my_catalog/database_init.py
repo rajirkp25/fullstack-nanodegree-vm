@@ -23,10 +23,11 @@ session = DBSession()
 
 # tile background list for random selection for ui
 
-tile_color_list = ['bg-secondary', 'bg-primary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-dark']
+tile_color_list = ['bg-secondary', 'bg-primary', 'bg-success',
+                   'bg-danger', 'bg-warning', 'bg-info', 'bg-dark']
 
 # Create dummy user
-user1 = User(name="Raji Rama", email="rajir.home@gmail.com",
+user1 = User(name="Raji Rama", email="raji.rkphamsan@gmail.com",
              avatar='https://cdn.theatlantic.com/assets/media/img/mt/2017/10/Pict1_Ursinia_calendulifolia/lead_720_405.jpg?mod=1533691909')
 session.add(user1)
 
@@ -45,7 +46,8 @@ cat1 = Category(name="Sci-Fi", description="Science fiction (often shortened to 
 
 session.add(cat1)
 
-cat2 = Category(name="Children's Book Series", description="A children's book series is a set of fiction books, with a connected story line, written for children.", tile="bg-primary", user=user1)
+cat2 = Category(name="Children's Book Series",
+                description="A children's book series is a set of fiction books, with a connected story line, written for children.", tile="bg-primary", user=user1)
 
 session.add(cat2)
 
@@ -53,7 +55,8 @@ cat3 = Category(name="Meditation", description="Meditation is a practice where a
 
 session.add(cat3)
 
-cat4 = Category(name="Mythology", description="In present use, mythology usually refers to the collected myths of a group of people, but may also mean the study of such myths.[31] For example, Greek mythology, Roman mythology and Hittite mythology all describe the body of myths retold among those cultures. Folklorist Alan Dundes defines myth as a sacred narrative that explains how the world and humanity evolved into their present form. Dundes classified a sacred narrative as a story that serves to define the fundamental worldview of a culture by explaining aspects of the natural world and delineating the psychological and social practices and ideals of a society. Anthropologist Bruce Lincoln defines myth as ideology in narrative form.", tile="bg-success", user=user1)
+cat4 = Category(name="Mythology",
+                description="In present use, mythology usually refers to the collected myths of a group of people, but may also mean the study of such myths.[31] For example, Greek mythology, Roman mythology and Hittite mythology all describe the body of myths retold among those cultures. Folklorist Alan Dundes defines myth as a sacred narrative that explains how the world and humanity evolved into their present form. Dundes classified a sacred narrative as a story that serves to define the fundamental worldview of a culture by explaining aspects of the natural world and delineating the psychological and social practices and ideals of a society. Anthropologist Bruce Lincoln defines myth as ideology in narrative form.", tile="bg-success", user=user1)
 
 session.add(cat4)
 
@@ -96,11 +99,13 @@ catItem3 = CategoryItem(name="The Hitchhiker's Guide To The Galaxy", description
 
 session.add(catItem3)
 
-catItem4 = CategoryItem(name="Ender's Game", description="Young Andrew Ender Wiggin, bred to be a genius, is drafted to Battle School where he trains to lead the century-long fight against the alien Buggers.", price="$19.50", author=" Orson Scott Card", category=cat1)
+catItem4 = CategoryItem(name="Ender's Game", description="Young Andrew Ender Wiggin, bred to be a genius, is drafted to Battle School where he trains to lead the century-long fight against the alien Buggers.",
+                        price="$19.50", author=" Orson Scott Card", category=cat1)
 
 session.add(catItem4)
 
-catItem5 = CategoryItem(name="The Dune Chronicles", description="Young Andrew Ender Wiggin, bred to be a genius, is drafted to Battle School where he trains to lead the century-long fight against the alien Buggers.", price="$7.50", author=" Frank Herbert", category=cat1)
+catItem5 = CategoryItem(name="The Dune Chronicles", description="Young Andrew Ender Wiggin, bred to be a genius, is drafted to Battle School where he trains to lead the century-long fight against the alien Buggers.",
+                        price="$7.50", author=" Frank Herbert", category=cat1)
 
 session.add(catItem5)
 
@@ -114,7 +119,8 @@ catItem7 = CategoryItem(name="Sam Hawkins, Pirate Detective", description="TSam 
 
 session.add(catItem7)
 
-catItem8 = CategoryItem(name="The Famous Five", description="The Famous Five is a series of children's adventure novels written by English author Enid Blyton. The first book, Five on a Treasure Island, was published in 1942. The novels feature the adventures of a group of young children – Julian, Dick, Anne and Georgina (George) – and their dog Timmy.", price="$22.50", author="Enid Blyton", category=cat2, best_seller_rank=2)
+catItem8 = CategoryItem(name="The Famous Five", description="The Famous Five is a series of children's adventure novels written by English author Enid Blyton. The first book, Five on a Treasure Island, was published in 1942. The novels feature the adventures of a group of young children – Julian, Dick, Anne and Georgina (George) – and their dog Timmy.",
+                        price="$22.50", author="Enid Blyton", category=cat2, best_seller_rank=2)
 
 session.add(catItem8)
 
@@ -122,13 +128,15 @@ catItem9 = CategoryItem(name="Nancy Drew Mystery Stories", description="The Nanc
 
 session.add(catItem9)
 
-catItem10 = CategoryItem(name="The Chronicles of Narnia", description="The Chronicles of Narnia is a series of seven fantasy novels by C. S. Lewis. It is considered a classic of children's literature and is the author's best-known work, having sold over 100 million copies in 47 languages.[1][2] Written by Lewis, illustrated by Pauline Baynes, and originally published in London between 1950 and 1956, The Chronicles of Narnia has been adapted several times, complete or in part, for radio, television, the stage, and film.", price="$67.50", author="C.S. Lewis", category=cat2, best_seller_rank=1)
+catItem10 = CategoryItem(name="The Chronicles of Narnia",
+                         description="The Chronicles of Narnia is a series of seven fantasy novels by C. S. Lewis. It is considered a classic of children's literature and is the author's best-known work, having sold over 100 million copies in 47 languages.[1][2] Written by Lewis, illustrated by Pauline Baynes, and originally published in London between 1950 and 1956, The Chronicles of Narnia has been adapted several times, complete or in part, for radio, television, the stage, and film.", price="$67.50", author="C.S. Lewis", category=cat2, best_seller_rank=1)
 
 session.add(catItem10)
 
 # Books for Meditation
 
-catItem11 = CategoryItem(name="Practicing Mindfulness", description="From finding your breath to feeling grounded, these practice-based exercises make integrating mindfulness into your routine easy. With over 75 essential meditations―that take between 5-20 minutes from start to finish―Practicing Mindfulness is an approachable way to apply mindfulness in your day-to-day life.", price="$34.50", author="Matthew Sockolov", category=cat3, best_seller_rank=0)
+catItem11 = CategoryItem(name="Practicing Mindfulness", description="From finding your breath to feeling grounded, these practice-based exercises make integrating mindfulness into your routine easy. With over 75 essential meditations―that take between 5-20 minutes from start to finish―Practicing Mindfulness is an approachable way to apply mindfulness in your day-to-day life.",
+                         price="$34.50", author="Matthew Sockolov", category=cat3, best_seller_rank=0)
 
 session.add(catItem11)
 
@@ -150,7 +158,8 @@ session.add(catItem15)
 
 # books for mythology
 
-catItem16 = CategoryItem(name="Mythology: Timeless Tales of Gods and Heroes", description="Edith Hamilton's mythology succeeds like no other book in bringing to life for the modern reader the Greek, Roman and Norse myths that are the keystone of Western culture-the stories of gods and heroes that have inspired human creativity from antiquity to the present. ", price="$20.50", author="Edith Hamilton", category=cat4, best_seller_rank=0)
+catItem16 = CategoryItem(name="Mythology: Timeless Tales of Gods and Heroes", description="Edith Hamilton's mythology succeeds like no other book in bringing to life for the modern reader the Greek, Roman and Norse myths that are the keystone of Western culture-the stories of gods and heroes that have inspired human creativity from antiquity to the present. ",
+                         price="$20.50", author="Edith Hamilton", category=cat4, best_seller_rank=0)
 
 session.add(catItem16)
 

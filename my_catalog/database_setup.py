@@ -21,11 +21,11 @@ class User(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'id': self.user_id,
+            'user_id': self.user_id,
             'name': self.name,
-            'email':self.email,
-            'avatar':self.avatar,
-            'tokens':self.tokens
+            'email': self.email,
+            'avatar': self.avatar,
+            'tokens': self.tokens
         }
 
 
@@ -37,8 +37,8 @@ class Category(Base):
     name = Column(String(250), nullable=False)
     description = Column(UnicodeText(10000))
     tile = Column(String(250))
-        # added by user
-    user_id = Column(Integer, ForeignKey('user.user_id'))  
+    # added by user
+    user_id = Column(Integer, ForeignKey('user.user_id'))
     user = relationship(User)
 
     @property
@@ -46,8 +46,8 @@ class Category(Base):
         """Return object data in easily serializeable format"""
         return {
             'name': self.name,
-            'id': self.cat_id,
-            'tile':self.tile
+            'cat_id': self.cat_id,
+            'tile': self.tile
         }
 
 
@@ -70,7 +70,7 @@ class CategoryItem(Base):
         return {
             'name': self.name,
             'description': self.description,
-            'id': self.item_id,
+            'item_id': self.item_id,
             'price': self.price,
             'cat_id': self.cat_id,
         }
