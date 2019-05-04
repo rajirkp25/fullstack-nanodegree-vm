@@ -1,17 +1,24 @@
+{% block content %}
 <nav>
+<!--
   <div class="nav-wrapper">
-    <a href="/catalog" class="brand-logo">Udacity Category App</a>
- 
-  <div class="nav-wrapper">
-    <a href="/catalog" class="brand-logo">Udacity Category App</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <a class="brand-logo">Udacity Category App</a>
+ -->
+  <div class="navbar  fixed-top navbar-dark bg-dark">
+    <span class="navbar-text">
+    
+    <h2 class="display-4" > Udacity Category App {{session['username']}} </h2>
+      </span>
+      <ul  class="text-right ">
     	{%if 'username' not in session %}
-		<li><a href="/login">Login</a></li>
+		<!--<div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+	<li><a class="text-primary" href="/gconnect?state={{STATE}}">Login</a></li>
 		{% else %}
-		<li><a href="/gdisconnect">Logout</a></li>
+		<li><a class="text-primary"  href="/gdisconnect">Logout</a></li>
     	{% endif %}
     </ul>
   </div>
+
 </nav>
 
     
@@ -53,3 +60,4 @@ function onSignIn(googleUser) {
 
     
   </script>
+     {% endblock %}  

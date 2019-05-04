@@ -1,7 +1,8 @@
 {% extends "main.html" %}
 {% include "topnav.html" %}
 {% block content %}
- <div id="signinButton" class="topright">
+<h1>{{STATE}} </h1>
+ <div id="signinButton">
 
 
   <script>
@@ -27,17 +28,17 @@ function onSignIn(googleUser) {
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
    document.cookie = "catuserid="+profile.getId();
    document.cookie = "catusername="+profile.getName();
    document.cookie = "catuseremail="+profile.getEmail();
  
       setTimeout(function() {
-          window.location.href = "/catalog";
+          window.location.href = "/gconnect?state={{STATE}}";
          }, 4000);
 }
 
     
   </script>
-  
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" ></script>
+	
    {% endblock %}  
