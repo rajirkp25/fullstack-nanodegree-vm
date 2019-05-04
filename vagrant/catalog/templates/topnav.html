@@ -7,7 +7,8 @@
   <div class="navbar  fixed-top navbar-dark bg-dark">
     <span class="navbar-text">
     
-    <h2 class="display-4" > Udacity Category App {{session['username']}} </h2>
+    <h2 class="display-4" > Udacity Category App  </h2>
+     <h4> Welcome user - {{session['username']}}</h4>
       </span>
       <ul  class="text-right ">
     	{%if 'username' not in session %}

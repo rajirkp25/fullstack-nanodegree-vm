@@ -1,0 +1,6 @@
+flask
+sqlalchemy
+oauth2client.client
+json
+httplib2
+random

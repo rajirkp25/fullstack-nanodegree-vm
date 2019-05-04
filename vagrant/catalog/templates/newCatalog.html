@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% include "topnav.html" %}
+{% block content %}
+<div class="col-xs-12" style="height:80px;"></div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>New Book Category</h1>
+                  <a href = '{{url_for('showCatalogs')}}'>
+      <button class="btn btn-danger">Cancel</button>
+      </a>
+		</div>
+	</div>
+<form action="#" method = "POST">
+  <div class="form-group ">
+    <label for="catName" class="col-sm-2 col-form-label">Book Category</label>
+    <div class="col-sm-10">
+      <input type ="text"  class="form-control" maxlength="100" name="catName" placeholder="New Category" data-error="Must enter minimum 3 characters" required>
+        <div class="invalid-feedback">
+          Please enter book category name.
+        </div>
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="catDescr">Description</label>
+    <textarea  class="form-control" name="catDescr" data-error="Must enter minimum 10 characters"  rows="3" placeholder="Category description."  required></textarea>
+      <div class="invalid-feedback">
+          Please enter book category description.
+        </div>
+  </div>
+    <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-success">Save</button>
+
+    </div>
+  </div>
+</form>
+
+{% endblock %}  

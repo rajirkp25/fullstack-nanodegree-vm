@@ -1,3 +1,5 @@
+# #!/usr/bin/env python3
+# code to run the server
 from flask import Flask, request, redirect, url_for, flash, jsonify, Session
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker

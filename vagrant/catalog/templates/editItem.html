@@ -1,0 +1,65 @@
+{% extends "main.html" %}
+{% include "topnav.html" %}
+{% block content %}
+<div class="col-xs-12" style="height:80px;"></div>
+
+<h3> Edit Book - {{item.name}} <h3>
+
+ <div class="row">
+   <div class="col-xs-12" style="width:20px;"></div>
+ <a href = '{{url_for('showCatalogItems', cat_id = item.cat_id )}}'>
+ 
+      <button class="btn btn-warning">Cancel</button>
+      </a>
+      <div class="col-xs-12" style="width:40px;"></div>
+       {% if 'username'  in session %}  
+       <a href = '{{url_for('deleteCatalogItem', cat_id = item.cat_id, item_id=item.item_id )}}'>
+      <button class="btn btn-danger">Delete</button>
+      </a>
+      {% endif %}
+  </div>
+
+  <div class="col-xs-12" style="height:20px;"></div>
+   {% if 'username'  in session %}
+<form action="#" method = "post">
+
+   <div class="form-group">
+    <label for="ItemDescr"><h5>Description</h5></label>
+    <textarea class="form-control" id="ItemDescr" name="ItemDescr" rows="4" required>{{item.description}}</textarea>
+  </div>
+<!--    <label for="itemName" class="col-sm-2 col-form-label"><h5>Author</h5></label>
+    <div class="col-sm-50">
+      <input type ="text"  class="form-control" maxlength="100" name="itemName" data-error="Must enter minimum 3 characters" required value={{item.author}} >
+     
+      </input>
+        <div class="invalid-feedback">
+          Please enter author name.
+        </div>
+        -->
+     <label for="itemPrice" class="col-sm-2 col-form-label"><h5>Price</h5></label>
+    <div class="col-sm-10">
+      <input type ="text" name="itemPrice" class="form-control" maxlength="100" id="itemPrice" data-error="Must enter minimum 3 characters" required value={{item.price}}>
+     
+      </input>
+        <div class="invalid-feedback">
+          Please enter book price.
+        </div>
+    <label for="itemRank" class="col-sm-2 col-form-label"><h5>Rank</h5></label>
+    <div class="col-sm-10">
+      <input type ="text" id="itemRank" class="form-control" maxlength="100" name="itemRank" data-error="Must enter minimum 3 characters"  value={{item.best_seller_rank}}>
+     
+      </input>
+     
+    <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-success">Save</button>
+     <a href = '{{url_for('showCatalogItems', cat_id = item.cat_id )}}'>
+     
+      </a>
+    </div>
+  </div>
+</form>
+{% endif %}
+
+
+{% endblock %}  
