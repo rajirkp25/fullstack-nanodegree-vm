@@ -24,6 +24,8 @@
     {% endwith %}
 
 </div>
+
+{{session['user_type'] }}
 	{% if 'username' in session %}
 <a  href='{{url_for('newCatalog') }}'>
 <button type="button" class="btn btn-success btn-lg">Create New Category</button>
@@ -41,8 +43,8 @@
    
     </div>
     <div class="card-body">
-    	{% if 'username' in session %}
-    <a href='{{url_for('editCatalog', cat_id = cat.cat_id )}}'class="card-link"><mark>Edit {{cat.name  , cat.cat_id}}</mark>
+    	{% if 'username' in session and (session['user_type'] =='admin' or   session['user_id'] ==cat.user_id  ) %}
+    <a href='{{url_for('editCatalog', cat_id = cat.cat_id )}}'class="card-link"><mark>Edit {{cat.name }}</mark>
     </a>
     {% endif %}
      <!-- <h5 class="card-title">Primary card title</h5> -->

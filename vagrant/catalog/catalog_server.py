@@ -166,6 +166,7 @@ def gconnect():
     if not user_id:
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
+
     cats = db_session.query(Category).order_by(asc(Category.name))
     return render_template('catalogs.html', categories=cats)
 
@@ -179,7 +180,9 @@ def createUser(login_session):
     db_session.add(newUser)
     db_session.commit()
     user = db_session.query(User).filter_by(email=login_session['email']).one()
-    return user.id
+    login_session['user_type'] = user.user_type
+    print('user type --',  user.user_type)
+    return user.user_id
 
 
 def getUserInfo(user_id):
@@ -192,6 +195,7 @@ def getUserID(email):
     try:
         user = db_session.query(User).filter_by(email=email).one()
         print('user id verify-->', user.user_id)
+        login_session['user_type'] = user.user_type
         return user.user_id
     except Exception as e:
         print('exception in getUserId-->', e)
@@ -218,7 +222,7 @@ def newCatalog():
     if request.method == 'POST':
         # add user info with catalog
         newCat = Category(name=request.form['catName'], description=request.form['catDescr'],
-                          tile=random.choice(tile_color_list))
+                          tile=random.choice(tile_color_list), user_id=login_session.get('user_id'))
         db_session.add(newCat)
         flash('New Book Category %s Successfully Created' % newCat.name)
 

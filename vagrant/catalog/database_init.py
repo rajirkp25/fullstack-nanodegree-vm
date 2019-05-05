@@ -29,7 +29,7 @@ tile_color_list = ['bg-secondary', 'bg-primary', 'bg-success',
                    'bg-danger', 'bg-warning', 'bg-info', 'bg-dark']
 
 # Create dummy user
-user1 = User(name="Raji Rama", email="raji.rkphamsan@gmail.com",
+user1 = User(name="Raji Rama", email="raji.rkphamsan@gmail.com",  user_type="admin",
              avatar='https://cdn.theatlantic.com/assets/media/img/mt/2017/10/Pict1_Ursinia_calendulifolia/lead_720_405.jpg?mod=1533691909')
 session.add(user1)
 

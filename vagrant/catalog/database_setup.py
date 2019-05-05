@@ -12,6 +12,7 @@ class User(Base):
     __tablename__ = 'user'
 
     user_id = Column(Integer, primary_key=True)
+    user_type = Column(String(250), default="normal")
     name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
     avatar = Column(String(250))
@@ -25,6 +26,7 @@ class User(Base):
         return {
             'user_id': self.user_id,
             'name': self.name,
+            'type': self.type,
             'email': self.email,
             'avatar': self.avatar,
             'tokens': self.tokens
