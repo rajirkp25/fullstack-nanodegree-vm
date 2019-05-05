@@ -12,7 +12,7 @@
       <button class="btn btn-warning">Cancel</button>
       </a>
       <div class="col-xs-12" style="width:40px;"></div>
-       {% if 'username'  in session %}  
+       	{% if 'username' in session and (session['user_type'] =='admin' or   session['user_id'] ==cat.user_id  ) %}
        <a href = '{{url_for('deleteCatalogItem', cat_id = item.cat_id, item_id=item.item_id )}}'>
       <button class="btn btn-danger">Delete</button>
       </a>
@@ -20,7 +20,7 @@
   </div>
 
   <div class="col-xs-12" style="height:20px;"></div>
-   {% if 'username'  in session %}
+   	{% if 'username' in session and (session['user_type'] =='admin' or   session['user_id'] ==cat.user_id  ) %}
 <form action="#" method = "post">
 
    <div class="form-group">

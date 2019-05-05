@@ -22,7 +22,7 @@
 
  <div class="row">
    <div class="col-xs-12" style="width:20px;"></div>
-  	{% if 'username' in session %} 
+  		{% if 'username' in session and (session['user_type'] =='admin' or   session['user_id'] ==cats.user_id  ) %}
  <a href = '{{url_for('newBook', cat_id=cats.cat_id)}}'>
       <button  class="btn btn-success btn-lg">Add a new Book</button>
       </a>

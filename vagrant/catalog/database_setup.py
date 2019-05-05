@@ -1,6 +1,7 @@
 # #!/usr/bin/env python3
 # data setup for the app
-from sqlalchemy import Column, ForeignKey, Integer, String, UnicodeText, Boolean, DateTime
+from sqlalchemy import Column, ForeignKey, Integer, String, UnicodeText, \
+    Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine

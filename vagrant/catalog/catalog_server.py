@@ -47,7 +47,9 @@ def defaultPage():
     print("user_name--", user_name)
     if user_name is None:
         state = ''.join(
-                random.choice(string.ascii_uppercase + string.digits) for x in range(32))
+            random.choice(
+                string.ascii_uppercase +
+                string.digits) for x in range(32))
         login_session['state'] = state
         print("state --", state)
         print('Home Page --')
@@ -128,7 +130,11 @@ def gconnect():
         # credentials = flow.step2_exchange(code)
     except FlowExchangeError as e:
         response = make_response(
-            json.dumps('Failed to upgrade the authorization code.' + format(str(e))), 401)
+            json.dumps(
+                'Failed to upgrade the authorization code.' +
+                format(
+                    str(e))),
+            401)
         response.headers['Content-Type'] = 'application/json'
         return response
     # Check that the access token is valid.
@@ -175,13 +181,17 @@ def gconnect():
 def createUser(login_session):
     print('In createUser ')
 
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email'], avatar=login_session['picture'], active=True, tokens=login_session['id'])
+    newUser = User(
+        name=login_session['username'],
+        email=login_session['email'],
+        avatar=login_session['picture'],
+        active=True,
+        tokens=login_session['id'])
     db_session.add(newUser)
     db_session.commit()
     user = db_session.query(User).filter_by(email=login_session['email']).one()
     login_session['user_type'] = user.user_type
-    print('user type --',  user.user_type)
+    print('user type --', user.user_type)
     return user.user_id
 
 
@@ -221,8 +231,11 @@ def newCatalog():
                        'bg-danger', 'bg-warning', 'bg-info', 'bg-dark']
     if request.method == 'POST':
         # add user info with catalog
-        newCat = Category(name=request.form['catName'], description=request.form['catDescr'],
-                          tile=random.choice(tile_color_list), user_id=login_session.get('user_id'))
+        newCat = Category(
+            name=request.form['catName'],
+            description=request.form['catDescr'],
+            tile=random.choice(tile_color_list),
+            user_id=login_session.get('user_id'))
         db_session.add(newCat)
         flash('New Book Category %s Successfully Created' % newCat.name)
 
@@ -294,7 +307,11 @@ def newBook(cat_id):
         print(request.form['price'])
         print(request.form['author'])
         newBook = CategoryItem(
-            cat_id=cat_id, name=request.form['name'], description=request.form['descr'], price=request.form['price'], author=request.form['author'])
+            cat_id=cat_id,
+            name=request.form['name'],
+            description=request.form['descr'],
+            price=request.form['price'],
+            author=request.form['author'])
         db_session.add(newBook)
         flash('New Book Category %s Successfully Created' % newBook.name)
 
@@ -305,10 +322,14 @@ def newBook(cat_id):
 
 
 # edit a catalog item
-@app.route('/catalog/<int:cat_id>/<int:item_id>/edit/', methods=['GET', 'POST'])
+@app.route(
+    '/catalog/<int:cat_id>/<int:item_id>/edit/',
+    methods=[
+        'GET',
+        'POST'])
 def editCatalogItem(cat_id, item_id):
     print("editing item id -->", item_id)
-    # cats = db_session.query(Category).filter_by(cat_id=cat_id).one()
+    cat = db_session.query(Category).filter_by(cat_id=cat_id).one()
 
     editedCatalogItem = db_session.query(
         CategoryItem).filter_by(item_id=item_id).one()
@@ -328,11 +349,15 @@ def editCatalogItem(cat_id, item_id):
         return redirect(url_for('showCatalogItems', cat_id=cat_id))
     else:
         print("editing item name = ", editedCatalogItem.name)
-        return render_template('editItem.html', item=editedCatalogItem)
+        return render_template('editItem.html', item=editedCatalogItem, cat=cat)
 
 
 # delete a catalog item
-@app.route('/catalog/<int:cat_id>/<int:item_id>/delete/', methods=['GET', 'POST'])
+@app.route(
+    '/catalog/<int:cat_id>/<int:item_id>/delete/',
+    methods=[
+        'GET',
+        'POST'])
 def deleteCatalogItem(cat_id, item_id):
 
     delCatalogItem = db_session.query(
@@ -346,7 +371,7 @@ def deleteCatalogItem(cat_id, item_id):
         return redirect(url_for('showCatalogItems', cat_id=cat_id))
     else:
         print("deleting catalog name = ", delCatalogItem.name)
-        return render_template('deleteCatalogItem.html',  item=delCatalogItem)
+        return render_template('deleteCatalogItem.html', item=delCatalogItem)
 
 
 # Json APIs to view catalogs and books

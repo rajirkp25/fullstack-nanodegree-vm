@@ -10,7 +10,7 @@
  <a href = '{{url_for('showCatalogs')}}'>
       <button class="btn btn-warning">Cancel</button>
       </a>
-    {% if 'username' in session %} 
+    	{% if 'username' in session and (session['user_type'] =='admin' or   session['user_id'] ==category.user_id  ) %}
       <div class="col-xs-12" style="width:40px;"></div>
    <a href = '{{url_for('showCatalogItems', cat_id = category.cat_id )}}'>
       <button class="btn btn-info">Edit Catalog Items</button>
@@ -23,7 +23,7 @@
 </div>
 
   <div class="col-xs-12" style="height:20px;"></div>
-   {% if 'username'  in session %}
+ 	{% if 'username' in session and (session['user_type'] =='admin' or   session['user_id'] ==category.user_id  ) %}
 <form action="#" method = "post">
 
    <div class="form-group">
