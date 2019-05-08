@@ -1,0 +1,61 @@
+{% extends "main.html" %}
+{% include "topnav.html" %}
+{% block content %}
+<div class="col-xs-12" style="height:80px;"></div>
+	<div class="row banner menu">
+<h1 class="display-3">Book Categories</h1>
+
+
+<!--
+<a  href='{{url_for('editCatalog', cat_id = 1) }}'>
+<button type="button" class="btn btn-info btn-lg">Edit Category</button>
+</a> -->
+</div>
+<div class = 'flash'>
+		      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+
+{{session['user_type'] }}
+	{% if 'username' in session %}
+<a  href='{{url_for('newCatalog') }}'>
+<button type="button" class="btn btn-success btn-lg">Create New Category</button>
+</a>
+{% endif %}
+<div class="col-xs-12" style="height:40px;"></div>
+<div class="container">
+  <div class="row">
+ 
+ {% for cat in categories %} 
+  <div class="col-sm-4">
+  <div class="card border-dark text-white {{cat.tile}} mb-3" style="max-width: 18rem;">
+    <div class="card-header">
+    <h5>{{cat.name}}</h5>
+   
+    </div>
+    <div class="card-body">
+    	{% if 'username' in session and (session['user_type'] =='admin' or   session['user_id'] ==cat.user_id  ) %}
+    <a href='{{url_for('editCatalog', cat_id = cat.cat_id )}}'class="card-link"><mark>Edit {{cat.name }}</mark>
+    </a>
+    {% endif %}
+     <!-- <h5 class="card-title">Primary card title</h5> -->
+      <p class="card-text">
+      {{cat.description}}
+      </p>
+    </div>
+  </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+   {% endblock %}  
