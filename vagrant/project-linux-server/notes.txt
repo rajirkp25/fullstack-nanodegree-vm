@@ -1,0 +1,24 @@
+Connect using new user
+
+ssh ubuntu@18.216.81.174 -p 2200 -i /c/Users/rr5924/.ssh/LightsailDefaultKey-us-east-2.pem
+
+
+ssh student@18.216.81.174 -p 2200 -i /c/Users/rr5924/.ssh/linuxCourse
+
+pwd- welcome123
+
+ssh grader@18.216.81.174 -p 2200 -i /c/Users/rr5924/.ssh/udacityGrader
+
+--no ssh password
+
+--general sudo pwd for grader - grader
+
+---------------------
+
+for student placed the pub key text value in /student/home/.ssh/authorized_keys file
+
+-------------------------------
+
+add new user named grader as sudo user 
+
+-sudo usermod -aG sudo grader
